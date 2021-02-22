@@ -52,13 +52,13 @@ syscall::NtOpenFile:entry
    this->deleted = arg5 & 0x00001000; /* & with FILE_DELETE_ON_CLOSE */
 
   if (this->deleted) {
-        this->attr = (nt`_OBJECT_ATTRIBUTES*)
-            copyin(arg2, sizeof(nt`_OBJECT_ATTRIBUTES));
+        this->attr = (struct nt`_OBJECT_ATTRIBUTES*)
+            copyin(arg2, sizeof(struct nt`_OBJECT_ATTRIBUTES));
 
         if (this->attr->ObjectName) {
-            this->objectName = (nt`_UNICODE_STRING*)
+            this->objectName = (struct nt`_UNICODE_STRING*)
                 copyin((uintptr_t)this->attr->ObjectName,
-                       sizeof(nt`_UNICODE_STRING));
+                       sizeof(struct nt`_UNICODE_STRING));
 
           
             this->fname = (uint16_t*)
